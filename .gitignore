@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+uploads/
+static/outputs/
+*.mp4
+*.pyc
+.vscode/

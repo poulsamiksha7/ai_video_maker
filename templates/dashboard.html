@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Maker | Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Workspace</h1>
+            <a href="{{ url_for('logout') }}" class="logout-link">Sign Out</a>
+        </header>
+
+        <main>
+            <section class="studio-grid">
+                <div class="upload-card">
+                    <h2>Create New Video</h2>
+                    <p style="color: #666; font-size: 0.875rem; margin-bottom: 1.5rem;">Upload your assets to generate a
+                        new piece.</p>
+
+                    <form id="uploadForm">
+                        <div class="form-group">
+                            <label>Visuals (Images)</label>
+                            <div class="dropzone" id="imageDropzone">
+                                <h3>Drop Images Here</h3>
+                                <p>or click to browse</p>
+                                <input type="file" id="imageInput" name="images" accept="image/*" multiple
+                                    style="display: none;">
+                            </div>
+                            <div id="imageList" class="file-list"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Audio Track</label>
+                            <div class="dropzone" id="audioDropzone" style="padding: 1.5rem 2rem;">
+                                <h3>Drop Audio (.mp3, .wav)</h3>
+                                <p>or click to browse</p>
+                                <input type="file" id="audioInput" name="audio" accept="audio/*" style="display: none;">
+                            </div>
+                            <div id="audioList" class="file-list"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="template">Aesthetic Template</label>
+                            <select id="template" name="template">
+                                <option value="Dynamic Zoom">Dynamic Zoom (CapCut Style)</option> 
+                                <option value="Cinematic Fade">Cinematic Fade (Smooth Flow)</option>
+                                <option value="Hard Cuts">Hard Cuts (Dynamic)</option>
+                                <option value="Dip to Black">Dip to Black (Dramatic)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="language">Caption Language</label>
+                            <select id="language" name="language">
+                                <option value="en">English</option>
+                                <option value="hi">Hindi (हिन्दी)</option>
+                                <option value="">Auto-Detect (AI Guess)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: center; gap: 12px; background: #fdfdfd; padding: 10px; border-radius: 8px; border: 1px solid #eee;">
+                            <input type="checkbox" id="enable_captions" name="enable_captions" checked style="width: 18px; height: 18px; accent-color: #1A1A1A; cursor: pointer;">
+                            <label for="enable_captions" style="margin-bottom: 0; font-weight: 500; cursor: pointer;">Enable AI Word-Captions</label>
+                        </div>
+                        <button type="submit" class="btn" id="generateBtn">Generate Video</button>
+                    </form>
+                    <div id="uploadStatus" style="margin-top: 1rem; font-size: 0.875rem; display: none;"></div>
+                </div>
+
+                <div class="guide-card"
+                    style="display: flex; flex-direction: column; justify-content: center; padding: 2rem;">
+                    <h3 style="font-family: 'Inter', sans-serif; margin-bottom: 1rem; font-size: 1.25rem;">How it works
+                    </h3>
+                    <ul style="list-style-type: none; gap: 1rem; display: flex; flex-direction: column; color: #555;">
+                        <li><strong>1.</strong> Your uploaded images are automatically timed out to perfectly fit the
+                            audio's length.</li>
+                        <li><strong>2.</strong> Whisper AI analyzes the spoken words and overlays beautiful captions
+                            directly onto the footage.</li>
+                        <li><strong>3.</strong> The resulting masterpiece is rendered in stunning 9:16 vertical
+                            resolution perfectly suited for social media.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="history-section">
+                <h2>Your Gallery</h2>
+                <div class="video-grid">
+                    {% for video in videos %}
+                    <div class="video-card">
+                        <div class="video-preview">
+                            <span class="status-badge status-{{ video.status }}">{{ video.status }}</span>
+                            {% if video.status == 'done' and video.video_path %}
+                            <video src="{{ url_for('static', filename='outputs/' ~ video.video_path|split('/')|last) }}"
+                                controls preload="metadata"></video>
+                            
+                            <a href="{{ url_for('static', filename='outputs/' ~ video.video_path|split('/')|last) }}" download class="btn" style="display: block; text-align: center; margin-top: 10px; padding: 8px; font-size: 0.8rem;">Download Video</a>
+                            
+                            {% else %}
+                            {% if video.status == 'processing' %}
+                            <div class="processing-text" style="font-family: 'Playfair Display', serif; color: #888;">
+                                Rendering...</div>
+                            {% else %}
+                            <div style="color: #888;">Error</div>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="video-info">
+                            <h3>{{ video.template_name }}</h3>
+                            <p>{{ video.created_at.strftime('%b %d, %Y - %H:%M') }}</p>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p style="color: #888; grid-column: 1/-1;">Your gallery is empty. Start creating above.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
