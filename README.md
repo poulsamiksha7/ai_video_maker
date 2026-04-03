@@ -1,6 +1,8 @@
 # AI Video Maker | Automated Short-Form Content Generator 🎥
 
 An automated video engine that transforms static images and audio tracks into engaging, social-media-ready vertical videos (9:16) using AI-powered transcription and cinematic effects.
+<img width="1412" height="3578" alt="Portfolio (2)" src="https://github.com/user-attachments/assets/74200577-9db8-41b7-aa5b-91dd1f5be692" />
+<img width="1920" height="1020" alt="Login" src="https://github.com/user-attachments/assets/2febe8b9-48ad-45fd-91ba-59ed79e2eaeb" />
 
 ## 🚀 Key Features
 - **AI Word-Level Captions:** Uses OpenAI's **Whisper** model for high-accuracy transcription and word-synced overlays.
