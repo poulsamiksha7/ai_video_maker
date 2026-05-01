@@ -2,7 +2,7 @@ import os
 import threading
 from glob import glob
 from flask import Flask, request, render_template, redirect, url_for, session, current_app, jsonify
-import mysql.connector
+import psycopg2
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from engine import render_video_task
