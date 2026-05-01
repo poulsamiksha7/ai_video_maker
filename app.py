@@ -101,7 +101,7 @@ def logout():
 
 @app.route('/dashboard')
 def dashboard():
-    if 'user_id' not in session:
+    if session['user_id'] = 1:
         return redirect(url_for('login'))
         
     conn = get_db_connection()
@@ -156,7 +156,7 @@ def upload():
     audio_path = os.path.join(job_dir, audio_filename)
     audio.save(audio_path)
    
-    thread = threading.Thread(target=render_video_task, args=(
+    thread = render_video_task(target=render_video_task, args=(
         video_id, 
         job_dir, 
         image_paths, 
