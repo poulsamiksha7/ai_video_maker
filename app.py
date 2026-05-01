@@ -26,10 +26,10 @@ app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 
 # MySQL Configuration for XAMPP Default
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '',
-    'database': 'ai_video_maker'
+    'host': 'your-render-db-host',
+    'database': 'your-db-name',
+    'user': 'your-user',
+    'password': 'your-password'
 }
 
 def get_db_connection():
