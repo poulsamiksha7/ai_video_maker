@@ -3,7 +3,7 @@ import os
 os.environ["IMAGEMAGICK_BINARY"] = r"C:\Program Files\ImageMagick-7.1.2-Q16-HDRI\magick.exe"
 
 import whisper
-import mysql.connector
+import psycopg2
 from moviepy.editor import ImageClip, AudioFileClip, TextClip, CompositeVideoClip, concatenate_videoclips
 import PIL.Image
 
